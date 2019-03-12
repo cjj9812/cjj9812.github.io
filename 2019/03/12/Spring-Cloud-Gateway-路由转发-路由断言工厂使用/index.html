@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Spring Cloud Gateway 路由转发---路由断言工厂使用 | nanshen</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="路由断言工厂使用author: nanshen tags:前言 本文旨在介绍After（Before）路由断言工厂使用，以此类推可以使用其他路由断言工厂 案例 1、概念1234网关简单的说就是提供一个对外统一的API入口和出口，统管企业对外的所有API出口。一般来说，网关对外暴露的URL或者接口信息，我们统称之为路由信息。如果研发过网关中间件，或者使用或了解过ZUUL的，网关的核心肯定是Filte">
+<meta name="keywords" content="spring Cloud">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Cloud Gateway 路由转发---路由断言工厂使用">
+<meta property="og:url" content="http://www.scnunanshen.online/2019/03/12/Spring-Cloud-Gateway-路由转发-路由断言工厂使用/index.html">
+<meta property="og:site_name" content="nanshen">
+<meta property="og:description" content="路由断言工厂使用author: nanshen tags:前言 本文旨在介绍After（Before）路由断言工厂使用，以此类推可以使用其他路由断言工厂 案例 1、概念1234网关简单的说就是提供一个对外统一的API入口和出口，统管企业对外的所有API出口。一般来说，网关对外暴露的URL或者接口信息，我们统称之为路由信息。如果研发过网关中间件，或者使用或了解过ZUUL的，网关的核心肯定是Filte">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-12T10:06:51.357Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring Cloud Gateway 路由转发---路由断言工厂使用">
+<meta name="twitter:description" content="路由断言工厂使用author: nanshen tags:前言 本文旨在介绍After（Before）路由断言工厂使用，以此类推可以使用其他路由断言工厂 案例 1、概念1234网关简单的说就是提供一个对外统一的API入口和出口，统管企业对外的所有API出口。一般来说，网关对外暴露的URL或者接口信息，我们统称之为路由信息。如果研发过网关中间件，或者使用或了解过ZUUL的，网关的核心肯定是Filte">
+  
+    <link rel="alternate" href="/atom.xml" title="nanshen" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/plugin/bganimation/bg.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <div class="outer">
+        <div class="widget-wrap mobile-header">
+  <h3 class="widget-title"></h3>
+  <div class="widget">
+    <img class="avatar" src="http://ww1.sinaimg.cn/large/005T3suDgy1g0ytf7n3v6j30u00u03zt.jpg">
+    <h2 class="author">nanshen</h2>
+    <h3 class="description"></h3>
+    <div class="count-box">
+      <a href="/archives"><div><strong>4</strong><br>文章</div></a>
+      <a href="/categories"><div><strong>2</strong><br>分类</div></a>
+      <a href="/tags"><div><strong>2</strong><br>标签</div></a>
+    </div>
+    <ul class="blog-link">
+     
+          <a href="/" title="Home">
+            <li>主页</li>
+          </a>
+        
+          <a href="/archives" title="Archives">
+            <li>归档</li>
+          </a>
+        
+          <a href="/categories" title="Categories">
+            <li>分类</li>
+          </a>
+        
+          <a href="/tags" title="Tags">
+            <li>标签</li>
+          </a>
+        
+          <a href="/about" title="About">
+            <li>关于</li>
+          </a>
+        
+    </ul>
+  </div>
+</div>
+
+        <section id="main"><article id="post-Spring-Cloud-Gateway-路由转发-路由断言工厂使用" class="wow slideInRight article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/12/Spring-Cloud-Gateway-路由转发-路由断言工厂使用/" class="article-date">
+  <time class="post-time" datetime="2019-03-12T10:04:00.000Z" itemprop="datePublished">
+    <span class="post-month">3月</span><br>
+    <span class="post-day">12</span>
+  </time>
+</a>
+   
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Spring Cloud Gateway 路由转发---路由断言工厂使用
+    </h1>
+  
+
+        <div>
+          
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/后端/">后端</a>
+  </div>
+
+          
+              
+
+          
+        </div>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>路由断言工厂使用<br>author: nanshen</p>
+<h2 id="tags"><a href="#tags" class="headerlink" title="tags:"></a>tags:</h2><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><hr>
+<p>本文旨在介绍After（Before）路由断言工厂使用，以此类推可以使用其他路由断言工厂</p>
+<h3 id="案例"><a href="#案例" class="headerlink" title="案例"></a>案例</h3><hr>
+<p><strong>1、概念</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">网关简单的说就是提供一个对外统一的API入口和出口，统管企业对外的所有API出口。一般来说，网关对外暴露的URL或者接口信息，</span><br><span class="line">我们统称之为路由信息。如果研发过网关中间件，或者使用或了解过ZUUL的，网关的核心肯定是Filter以及FilterChain(Filter责任链)。</span><br><span class="line">Spring Cloud Gateway也具有路由信息和Filter。下面介绍一下Spring Cloud gateway中最重要的几个概念</span><br><span class="line">                                                                                    ---引用自http://xujin.org/sc/gw/gw04/</span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">路由(route):路由是网关最基础的部分，路由信息由一个ID、一个目的url、一组断言工厂和一组Filter组成。如果路由断言工厂为真，则说明请求的Url和配置的路由匹配。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">断言(Predicate): java 8中的断言函数。Spring Cloud Gateway中的断言函数输入类型是Spring 5.0框架中的ServerWebExchange。Spring Cloud Gateway中的断言函数允许开发者去定义匹配来自于http request中的任何信息，比如请求头和参数等。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">过滤器(filter):一个标准的Spring webFilter。Spring Cloud Gateway中的Filter分为两种类型的Filter，分别是Gateway Filter和Global Filter.网关 Filter实例是由Spring 框架中的网关Filter的特殊工厂构造。request在转发到目前服务之前，response在返回到调用端之前都可以被修改或者自定义。</span><br></pre></td></tr></table></figure>
+<p><strong>2、什么是After(Before)路由断言？</strong><br><br><code>Before路由断言工厂带有一个UTC时间格式的时间参数，当请求进来的当前时间在路由断言工厂之前会成功匹配，否则不能成功匹配。</code><br><br><br><code>After路由断言工厂带有一个UTC时间格式的时间参数，当请求进来的当前时间在路由断言工厂之后会成功匹配，否则不能成功匹配。</code></p>
+<p><strong>3、案例</strong><br><br>在<a href>Spring Cloud Gateway 路由转发案例</a>基础上修改application.yml文件中<strong>断言配置</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">  port: 9001</span><br><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: service-agateway</span><br><span class="line">  cloud:</span><br><span class="line">    nacos:</span><br><span class="line">      discovery:</span><br><span class="line">        server-addr: 127.0.0.1:8848</span><br><span class="line">    #将此服务设置为网关</span><br><span class="line">    gateway:</span><br><span class="line">      discovery:</span><br><span class="line">        locator:</span><br><span class="line">          enabled: true</span><br><span class="line">      routes:</span><br><span class="line">      #路由名称</span><br><span class="line">      - id: consumer_route</span><br><span class="line">      #跳转路由</span><br><span class="line">        uri: http://www.scnunanshen.online/</span><br><span class="line">      #断言，设置拦截条件</span><br><span class="line">        predicates:</span><br><span class="line">        - After=2018-03-18T17:32:58.129+08:00[Asia/Shanghai]        </span><br><span class="line"></span><br><span class="line">#此处为After断言工厂，表示在该时间之后的请求都将跳转到uri</span><br></pre></td></tr></table></figure>
+<p><strong>4、其他断言工厂</strong></p>
+<ul>
+<li>通过Cookie信息配置</li>
+<li>通过Header属性匹配</li>
+<li>通过Host主机匹配</li>
+<li>通过请求方式匹配</li>
+<li>通过请求参数匹配</li>
+<li>以上方式组合使用</li>
+</ul>
+<p>示例：参数匹配方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">  port: 9001</span><br><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: service-agateway</span><br><span class="line">  cloud:</span><br><span class="line">    nacos:</span><br><span class="line">      discovery:</span><br><span class="line">        server-addr: 127.0.0.1:8848</span><br><span class="line">    #将此服务设置为网关</span><br><span class="line">    gateway:</span><br><span class="line">      discovery:</span><br><span class="line">        locator:</span><br><span class="line">          enabled: true</span><br><span class="line">      routes:</span><br><span class="line">      #路由名称</span><br><span class="line">      - id: consumer_route</span><br><span class="line">      #跳转路由</span><br><span class="line">        uri: http://www.scnunanshen.online/</span><br><span class="line">      #断言，设置拦截条件</span><br><span class="line">        predicates:</span><br><span class="line">        - Query=nan</span><br><span class="line"></span><br><span class="line">#此处表示设置当访问url中存在nan属性时，路由才会匹配</span><br><span class="line">#http://localhost:9001/aa?nan=1访问 ，断言为真路由匹配。</span><br><span class="line"></span><br><span class="line">#也可以同时设置属性跟值如：- Query=nan,2</span><br><span class="line">#当路由匹配nan=2时，才会被拦截</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://www.scnunanshen.online/2019/03/12/Spring-Cloud-Gateway-路由转发-路由断言工厂使用/" data-id="cjt5m3t1500000o8e35zewy6e" class="article-share-link">分享</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring-Cloud/">spring Cloud</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/03/12/Spring-Cloud-Gateway-路由转发案例/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">Spring Cloud Gateway 路由转发案例</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    <div class="widget-wrap">
+  <h3 class="widget-title"></h3>
+  <div class="widget">
+    <h1 class="blog-title">nanshen</h1>
+    <h2 class="blog-subtitle"></h2>
+    <ul class="blog-link">
+     
+          <a href="/" title="Home">
+            <li>主页</li>
+          </a>
+        
+          <a href="/archives" title="Archives">
+            <li>归档</li>
+          </a>
+        
+          <a href="/categories" title="Categories">
+            <li>分类</li>
+          </a>
+        
+          <a href="/tags" title="Tags">
+            <li>标签</li>
+          </a>
+        
+          <a href="/about" title="About">
+            <li>关于</li>
+          </a>
+        
+    </ul>
+  </div>
+</div>
+
+  
+    <div class="widget-wrap">
+  <h3 class="widget-title"></h3>
+  <div class="widget">
+    <img class="avatar" src="http://ww1.sinaimg.cn/large/005T3suDgy1g0ytf7n3v6j30u00u03zt.jpg">
+    <h2 class="author">nanshen</h2>
+    <h3 class="description"></h3>
+    <div class="count-box">
+      <a href="/archives"><div><strong>4</strong><br>文章</div></a>
+      <a href="/categories"><div><strong>2</strong><br>分类</div></a>
+      <a href="/tags"><div><strong>2</strong><br>标签</div></a>
+    </div>
+
+
+
+    <div class="social-link">
+      
+        <a class="hvr-bounce-in" href="https://github.com/cjj9812" target="_blank" title="Github">
+          Github
+        </a>
+      
+    </div>
+
+    <div class="friend-link">
+      <h2>友情链接</h2>
+      
+        <a class="hvr-bounce-in" href="http://www.scnunanshen.online/" target="_blank" title="nanshen">
+          nanshen
+        </a>
+      
+    </div>
+  </div>
+</div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy;2018 - 2019 nanshen<br>
+      由<a href="http://hexo.io/" target="_blank">Hexo</a>强力驱动 | 
+      主题-<a href="https://github.com/ShanaMaid/hexo-theme-shana">Shana</a>
+      
+    </div>
+    
+  </div>
+</footer>
+    </div>
+    
+
+<script src="//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="//apps.bdimg.com/libs/wow/0.1.6/wow.min.js"></script>
+<script>
+new WOW().init();
+</script>   
+
+
+  <link rel="stylesheet" href="/plugin/fancybox/jquery.fancybox.css">
+  <script src="/plugin/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+  <link rel="stylesheet" href="/plugin/galmenu/GalMenu.css">
+  <script src="/plugin/galmenu/GalMenu.js"></script>
+  <div class="GalMenu GalDropDown">
+      <div class="circle" id="gal">
+        <div class="ring">
+          
+            <a href="/" title class="menuItem">首页</a>
+          
+            <a href="/tags/hexo" title class="menuItem">标签</a>
+          
+            <a href="/categories/hexo" title class="menuItem">分类</a>
+          
+            <a href="/archives" title class="menuItem">归档</a>
+          
+            <a href="/about" title class="menuItem">关于</a>
+          
+            <a href="/" title class="menuItem">xxxx</a>
+          
+        </div>
+        
+          <audio id="audio" src="#"></audio>
+        
+      </div> 
+</div>
+<div id="overlay" style="opacity: 1; cursor: pointer;"></div>
+  <script type="text/javascript">var items = document.querySelectorAll('.menuItem');
+    for (var i = 0,
+    l = items.length; i < l; i++) {
+      items[i].style.left = (50 - 35 * Math.cos( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+      items[i].style.top = (50 + 35 * Math.sin( - 0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%"
+    }</script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('body').GalMenu({
+      'menu': 'GalDropDown'
+    })
+  });
+</script>
+
+  <section class="hidden-xs"> 
+  <ul class="cb-slideshow"> 
+    <li><span>苟利</span></li> 
+    <li><span>国家</span></li> 
+    <li><span>生死以</span></li> 
+    <li><span>岂能</span></li> 
+    <li><span>祸福</span></li> 
+    <li><span>趋避之</span></li> 
+  </ul>
+</section>
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -3,15 +3,19 @@
 <head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
-  <title>nanshen</title>
+  <title>Spring Cloud Gateway 路由转发案例 | nanshen</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="nanshen">
-<meta property="og:url" content="http://www.scnunanshen.online/index.html">
+  <meta name="description" content="前言 本文主要讲解实现Spring Cloud Gateway路由转发功能 概念 什么是Spring Cloud Gateway？123  Spring Cloud Gateway是Spring官方基于Spring 5.0，Spring Boot 2.0和Project Reactor等技术开发的网关，Spring Cloud Gateway旨在为微服务架构提供一种简单而有效的统一的API路由管理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Cloud Gateway 路由转发案例">
+<meta property="og:url" content="http://www.scnunanshen.online/2019/03/12/Spring-Cloud-Gateway-路由转发案例/index.html">
 <meta property="og:site_name" content="nanshen">
+<meta property="og:description" content="前言 本文主要讲解实现Spring Cloud Gateway路由转发功能 概念 什么是Spring Cloud Gateway？123  Spring Cloud Gateway是Spring官方基于Spring 5.0，Spring Boot 2.0和Project Reactor等技术开发的网关，Spring Cloud Gateway旨在为微服务架构提供一种简单而有效的统一的API路由管理">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-12T08:00:06.177Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="nanshen">
+<meta name="twitter:title" content="Spring Cloud Gateway 路由转发案例">
+<meta name="twitter:description" content="前言 本文主要讲解实现Spring Cloud Gateway路由转发功能 概念 什么是Spring Cloud Gateway？123  Spring Cloud Gateway是Spring官方基于Spring 5.0，Spring Boot 2.0和Project Reactor等技术开发的网关，Spring Cloud Gateway旨在为微服务架构提供一种简单而有效的统一的API路由管理">
   
     <link rel="alternate" href="/atom.xml" title="nanshen" type="application/atom+xml">
   
@@ -68,9 +72,7 @@
   </div>
 </div>
 
-        <section id="main">
-  
-    <article id="post-Spring-Cloud-Gateway-路由转发案例" class="wow slideInRight article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-Spring-Cloud-Gateway-路由转发案例" class="wow slideInRight article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/03/12/Spring-Cloud-Gateway-路由转发案例/" class="article-date">
   <time class="post-time" datetime="2019-03-12T08:00:01.000Z" itemprop="datePublished">
@@ -86,8 +88,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/12/Spring-Cloud-Gateway-路由转发案例/">Spring Cloud Gateway 路由转发案例</a>
+    <h1 class="article-title" itemprop="name">
+      Spring Cloud Gateway 路由转发案例
     </h1>
   
 
@@ -125,156 +127,21 @@
     </footer>
   </div>
   
-</article>
-
-
-
-
-  
-    <article id="post-spring-Cloud-Gateway-入门简单使用" class="wow slideInRight article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/12/spring-Cloud-Gateway-入门简单使用/" class="article-date">
-  <time class="post-time" datetime="2019-03-12T02:03:00.000Z" itemprop="datePublished">
-    <span class="post-month">3月</span><br>
-    <span class="post-day">12</span>
-  </time>
-</a>
-   
-  </div>
-  <div class="article-inner">
     
-    
-      <header class="article-header">
-        
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/12/spring-Cloud-Gateway-入门简单使用/">spring Cloud Gateway 入门简单使用</a>
-    </h1>
   
+    <a href="/2019/03/12/spring-Cloud-Gateway-入门简单使用/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">spring Cloud Gateway 入门简单使用</div>
+    </a>
+  
+</nav>
 
-        <div>
-          
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/后端/">后端</a>
-  </div>
-
-          
-              
-
-          
-        </div>
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><hr>
-<p>本文旨在介绍spring Cloud Gateway概念，附带简单入门使用。</p>
-<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><hr>
-<ul>
-<li>1、什么是网关？</li>
-<li>2、什么时候用网关？</li>
-<li>3、什么地方用网关？</li>
-<li>4、为什么用网关？</li>
-<li>5、Spring Cloud GateWay作用？</li>
-<li>6、Spring Cloud GateWay简单入门？</li>
-</ul>
-<h4 id="1-什么是网关"><a href="#1-什么是网关" class="headerlink" title="1.什么是网关"></a>1.什么是网关</h4><hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">  此处说的网关不是网络设备中的网关，而是API网关。</span><br><span class="line">  API网关：简单来说，API网关就是客户端访问系统的唯一入口，其托管了所有微服务API的分发，其应该提供</span><br><span class="line">完整的API发布、管理、维护生命周期管理，并且API网关可以对用户请求进行过滤，拦截，改造、分发等功能。</span><br></pre></td></tr></table></figure>
-<h4 id="2、什么时候用API网关？"><a href="#2、什么时候用API网关？" class="headerlink" title="2、什么时候用API网关？"></a>2、什么时候用API网关？</h4><hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">一般我们使用分布式系统或者微服务系统时，会使用网关，便于管理API路由，对系统安全进行保障。</span><br></pre></td></tr></table></figure>
-<h4 id="3、什么地方用网关？"><a href="#3、什么地方用网关？" class="headerlink" title="3、什么地方用网关？"></a>3、什么地方用网关？</h4><hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">就目前我接触的项目中，我只在微服务中使用过网关（SpringCloud Gateway）</span><br></pre></td></tr></table></figure>
-<h4 id="4、为什么使用网关"><a href="#4、为什么使用网关" class="headerlink" title="4、为什么使用网关?"></a>4、为什么使用网关?</h4><hr>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">  网关提供了对系统API、用户请求统一管理的功能，如果没有网关，我们需要在每个子系统中对用户请求进行鉴权，过滤等操作，</span><br><span class="line">当子系统很多的时候，维护起来很艰难，而遵从代码复用原则以及代码解耦原则我们也更应该把这些与业务操作无关的工作抽</span><br><span class="line">离出来，所以网关的使用是非常有必要的。</span><br></pre></td></tr></table></figure>
-<h4 id="5、Spring-Cloud-GateWay简介与作用？"><a href="#5、Spring-Cloud-GateWay简介与作用？" class="headerlink" title="5、Spring Cloud GateWay简介与作用？"></a>5、Spring Cloud GateWay简介与作用？</h4><hr>
-<p>简介：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">  Spring Cloud GateWay是Spring Cloud 中的一个项目，提供了一个用于在Spring MVC之上构建API网关的库。Spring Cloud</span><br><span class="line">Gateway旨在提供一种简单而有效的方式来路由到API，并为他们提供横切关注点，例如：安全性，监控/指标和弹性。</span><br></pre></td></tr></table></figure>
-<p>特征功能有：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">基于Spring Framework 5，Project Reactor和Spring Boot 2.0构建</span><br><span class="line">能够匹配任何请求属性上的路由。</span><br><span class="line">谓词和过滤器特定于路线。</span><br><span class="line">Hystrix断路器集成。</span><br><span class="line">Spring Cloud DiscoveryClient集成</span><br><span class="line">易于编写谓词和过滤器</span><br><span class="line">请求率限制</span><br><span class="line">路径重写</span><br></pre></td></tr></table></figure>
-<h4 id="6、Spring-Cloud-GateWay简单入门（搭建）？"><a href="#6、Spring-Cloud-GateWay简单入门（搭建）？" class="headerlink" title="6、Spring Cloud GateWay简单入门（搭建）？"></a>6、Spring Cloud GateWay简单入门（搭建）？</h4><hr>
-<p>创建springboot项目，导入依赖：<strong>此处应该注意springboot版本问题，低版本是不支持的</strong>。<br><br><br>nacos：服务发现与管理（Eureka停止维护）<br><br><br>Feign：服务间调用、负载均衡（整合ribbon）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">         xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;</span><br><span class="line">    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;</span><br><span class="line">    &lt;parent&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;</span><br><span class="line">        &lt;version&gt;2.0.1.RELEASE&lt;/version&gt;</span><br><span class="line">        &lt;relativePath/&gt; &lt;!-- lookup parent from repository --&gt;</span><br><span class="line">    &lt;/parent&gt;</span><br><span class="line">    &lt;groupId&gt;com.miniwan&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;gateway&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;</span><br><span class="line">    &lt;name&gt;gateway&lt;/name&gt;</span><br><span class="line">    &lt;description&gt;Demo project for Spring Boot&lt;/description&gt;</span><br><span class="line"></span><br><span class="line">    &lt;properties&gt;</span><br><span class="line">        &lt;java.version&gt;1.8&lt;/java.version&gt;</span><br><span class="line">        &lt;spring-cloud.version&gt;Finchley.SR2&lt;/spring-cloud.version&gt;</span><br><span class="line">    &lt;/properties&gt;</span><br><span class="line"></span><br><span class="line">    &lt;dependencies&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-cloud-starter-gateway&lt;/artifactId&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;!--使用Feign进行服务间调用--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-cloud-starter-openfeign&lt;/artifactId&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;</span><br><span class="line">            &lt;scope&gt;test&lt;/scope&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">        &lt;!--使用nacos服务管理--&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-cloud-starter-alibaba-nacos-discovery&lt;/artifactId&gt;</span><br><span class="line">        &lt;/dependency&gt;</span><br><span class="line">    &lt;/dependencies&gt;</span><br><span class="line"></span><br><span class="line">    &lt;dependencyManagement&gt;</span><br><span class="line">        &lt;dependencies&gt;</span><br><span class="line">            &lt;dependency&gt;</span><br><span class="line">                &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span><br><span class="line">                &lt;artifactId&gt;spring-cloud-dependencies&lt;/artifactId&gt;</span><br><span class="line">                &lt;version&gt;$&#123;spring-cloud.version&#125;&lt;/version&gt;</span><br><span class="line">                &lt;type&gt;pom&lt;/type&gt;</span><br><span class="line">                &lt;scope&gt;import&lt;/scope&gt;</span><br><span class="line">            &lt;/dependency&gt;</span><br><span class="line">            &lt;dependency&gt;</span><br><span class="line">                &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;</span><br><span class="line">                &lt;artifactId&gt;spring-cloud-alibaba-dependencies&lt;/artifactId&gt;</span><br><span class="line">                &lt;version&gt;0.2.1.RELEASE&lt;/version&gt;</span><br><span class="line">                &lt;type&gt;pom&lt;/type&gt;</span><br><span class="line">                &lt;scope&gt;import&lt;/scope&gt;</span><br><span class="line">            &lt;/dependency&gt;</span><br><span class="line">        &lt;/dependencies&gt;</span><br><span class="line">    &lt;/dependencyManagement&gt;</span><br><span class="line"></span><br><span class="line">    &lt;build&gt;</span><br><span class="line">        &lt;plugins&gt;</span><br><span class="line">            &lt;plugin&gt;</span><br><span class="line">                &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">                &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">            &lt;/plugin&gt;</span><br><span class="line">        &lt;/plugins&gt;</span><br><span class="line">    &lt;/build&gt;</span><br><span class="line"></span><br><span class="line">    &lt;repositories&gt;</span><br><span class="line">        &lt;repository&gt;</span><br><span class="line">            &lt;id&gt;spring-milestones&lt;/id&gt;</span><br><span class="line">            &lt;name&gt;Spring Milestones&lt;/name&gt;</span><br><span class="line">            &lt;url&gt;https://repo.spring.io/milestone&lt;/url&gt;</span><br><span class="line">        &lt;/repository&gt;</span><br><span class="line">    &lt;/repositories&gt;</span><br><span class="line"></span><br><span class="line">&lt;/project&gt;</span><br></pre></td></tr></table></figure></p>
-<p>配置yml：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">server:</span><br><span class="line">  port: 8004</span><br><span class="line">spring:</span><br><span class="line">  application:</span><br><span class="line">    name: service-gateway</span><br><span class="line">  cloud:</span><br><span class="line">    gateway:</span><br><span class="line">      discovery:</span><br><span class="line">        locator:</span><br><span class="line">          enabled: true</span><br><span class="line">#注册到服务中心</span><br><span class="line">    nacos:</span><br><span class="line">      discovery:</span><br><span class="line">        server-addr: 127.0.0.1:8848</span><br></pre></td></tr></table></figure>
-<p>@EnableDiscoveryClient启动客户端：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@SpringBootApplication</span><br><span class="line">@EnableDiscoveryClient</span><br><span class="line">public class GatewayApplication &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(GatewayApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>检测：启动项目，在nacos上可以看到网关服务已启动<br><img src="https://user-gold-cdn.xitu.io/2019/3/12/169700bbeae55c15?w=1742&amp;h=368&amp;f=jpeg&amp;s=119109" alt="检测图片"></p>
-<p>至此网关搭建成功！</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.scnunanshen.online/2019/03/12/spring-Cloud-Gateway-入门简单使用/" data-id="cjt5kt3850003ug8eiu604uqq" class="article-share-link">分享</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/spring-Cloud/">spring Cloud</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
 
 
-
-
-  
-    <article id="post-搭建hexo" class="wow slideInRight article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/11/搭建hexo/" class="article-date">
-  <time class="post-time" datetime="2019-03-11T07:19:00.000Z" itemprop="datePublished">
-    <span class="post-month">3月</span><br>
-    <span class="post-day">11</span>
-  </time>
-</a>
-   
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/11/搭建hexo/">整合github、hexo搭建博客</a>
-    </h1>
-  
-
-        <div>
-          
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/hexo/">hexo</a>
-  </div>
-
-          
-              
-
-          
-        </div>
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><hr>
-<p>作为一个程序员，拥有自己的技术博客是一件非常有必要的事，博客既可以记录自己生涯的每一个阶段的成长历程，也可以将自己的技术心得、经验跟技术人一起分享，若干年后你再回首自己写的每一篇博文，或许你会感到温馨。虽然目前存在很多技术平台支持发布博客文章，但拥有自己域名下的博客是很酷的一件事，所以我决定还是自己搭一个自己域名的博客。</p>
-<h3 id="安装教程"><a href="#安装教程" class="headerlink" title="安装教程"></a>安装教程</h3><hr>
-<p>安装教程参照：<a href="https://zhuanlan.zhihu.com/p/26625249" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/26625249</a><br><br><br>博客主体参照：<a href="https://github.com/ShanaMaid/hexo-theme-shana" target="_blank" rel="noopener">https://github.com/ShanaMaid/hexo-theme-shana</a><br><br><br>图片来自微软每日必应<br><br><br>图床推荐使用七牛云或者微博（谷歌应用搜索新浪微博图床）</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://www.scnunanshen.online/2019/03/11/搭建hexo/" data-id="cjt5kt38l0005ug8em2scjuvs" class="article-share-link">分享</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-
-  
 
 </section>
         
